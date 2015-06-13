@@ -17,4 +17,36 @@ router.get('/articlelist', function(req, res) {
     });
 });
 
+/* GET New Article page. */
+router.get('/articlenew', function(req, res) {
+    res.render('articlenew', { title: 'Create New Article' });
+});
+
+/* POST to Add Article service */
+router.post('/addarticle', function(req, res) {
+    var db = req.db;
+
+    // Get our form values. These rely on the "name" attributes
+    var name = req.body.name;
+    var content = req.body.content;
+
+    // Set our collection
+    var collection = db.get('articles');
+
+    // Submit to the DB
+    collection.insert({
+        "name" : name,
+        "content" : content
+    }, function (err, doc) {
+        if (err) {
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        }
+        else {
+            // And forward to success page
+            res.redirect("articlelist");
+        }
+    });
+});
+
 module.exports = router;
