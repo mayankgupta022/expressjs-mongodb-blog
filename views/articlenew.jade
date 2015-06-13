@@ -1,10 +1,12 @@
 extends layout
 
 block content
-    h1= title
-    form#formAddArticle(name="addarticle",method="post",action="/addarticle")
-        input#name(type="text", placeholder="name", name="name")
-        br
-        textarea#content(name="content")
-        br
-        button#btnSubmit(type="submit") submit
+	a(href="/articlelist").
+		All Articles
+	h1= title
+	form#formAddArticle(name="addarticle",method="post",action="/addarticle")
+		input#name(type="text", placeholder="name", name="name")
+		br
+		textarea#content(name="content")
+		br
+		button#btnSubmit(type="submit") submit

@@ -17,6 +17,20 @@ router.get('/articlelist', function(req, res) {
     });
 });
 
+/* GET Specific Article page. */
+router.get('/article/:name', function(req, res) {
+	var db = req.db;
+	var name = req.params.name;
+    var collection = db.get('articles');
+    collection.findOne({"name": name},{},function(e,docs){
+    	console.log(docs);
+        res.render('articledetails', {
+            "article" : docs
+        });
+    });
+});
+
+
 /* GET New Article page. */
 router.get('/articlenew', function(req, res) {
     res.render('articlenew', { title: 'Create New Article' });
