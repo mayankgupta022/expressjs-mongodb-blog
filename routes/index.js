@@ -1,4 +1,6 @@
 var express = require('express');
+var credentials = require('../credentials');
+
 var router = express.Router();
 
 /* GET home page. */
@@ -43,7 +45,12 @@ router.post('/addarticle', function(req, res) {
     // Get our form values. These rely on the "name" attributes
     var name = req.body.name;
     var content = req.body.content;
+    var user = req.body.user;
 
+    if(user != credentials.user) {
+    	res.redirect("/articlelist");
+    	return;
+    }
     // Set our collection
     var collection = db.get('articles');
 
@@ -58,7 +65,7 @@ router.post('/addarticle', function(req, res) {
         }
         else {
             // And forward to success page
-            res.redirect("articlelist");
+            res.redirect("/articlelist");
         }
     });
 });
